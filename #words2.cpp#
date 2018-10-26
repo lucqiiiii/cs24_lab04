@@ -1,0 +1,75 @@
+// Words1.Cpp// words2.h - version 2 of class Words
+
+#include <string>
+
+#ifndef WORDS2_H
+#define WORDS2_H
+
+namespace lab04_2
+{
+    class Words
+    {
+    public:
+        Words(unsigned int initial_capacity = 10); // revised
+        Words(const Words &source); // new
+        ~Words(); // new
+        
+        void append(std::string word);
+        std::string& operator[] (unsigned int index);
+        Words& operator=(const Words &source); // new
+        
+        unsigned int size() const;
+        unsigned int get_capacity() const;
+        std::string operator[] (unsigned int index) const;
+        
+    private:
+        std::string *data; // now a pointer
+        unsigned int used;
+        unsigned int capacity;
+    };
+
+}
+
+#endif
+ - implements class Words
+// (fixed size array version)
+
+#include <cassert>
+#include <string>
+#include "words1.h"
+
+using std::string;
+
+namespace lab04_1
+{
+    Words::Words() {
+        used = 0;
+        capacity = 10;
+    }
+    
+    void Words::append(string word) {
+        assert(used < capacity);
+        data[used] = word;
+        ++used;
+    }
+    
+    string& Words::operator[] (unsigned int index) {
+        assert(index < used);
+        return data[index];
+    }
+    
+    unsigned int Words::size() const {
+        return used;
+    }
+    
+    unsigned int Words::get_capacity() const {
+        return capacity;
+    }
+    
+    string Words::operator[] (unsigned int index) const {
+        assert(index < used);
+        return data[index];
+    }
+    
+}
+
